@@ -10,7 +10,7 @@ public interface ICategoryService {
 
     Category createCategory(Category category);
 
-    Category updateCategory(Category category);
+    Category updateCategory(Long catId, Category category);
 
     void deleteCategory(Long catId);
 
