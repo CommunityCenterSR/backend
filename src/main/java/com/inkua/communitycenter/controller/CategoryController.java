@@ -28,7 +28,7 @@ public class CategoryController {
     @GetMapping("/category")
     public ResponseEntity<Optional<Category>> findByName(@RequestParam(name = "name") String name){
         Optional<Category> category = categoryService.findByName(name);
-        return new ResponseEntity<>(category, HttpStatus.FOUND);
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
     // ---------------------------------------------

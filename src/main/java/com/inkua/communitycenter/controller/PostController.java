@@ -3,6 +3,8 @@ package com.inkua.communitycenter.controller;
 import com.inkua.communitycenter.entity.Post;
 import com.inkua.communitycenter.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -21,49 +23,49 @@ public class PostController {
     // ---------------------------------------------------------
 
     @GetMapping
-    public List<Post> findAll(){
-        return postService.findAll();
+    public ResponseEntity<List<Post>> findAll(){
+        return new ResponseEntity<>(postService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{postId}")
-    public Post findPostByPostId(@PathVariable Long postId){
-        return postService.findById(postId);
+    public ResponseEntity<Post> findPostByPostId(@PathVariable Long postId){
+        return new ResponseEntity<>(postService.findById(postId), HttpStatus.OK);
     }
 
     @GetMapping("/date")
-    public List<Post> findPostsByEventDate(@RequestParam("date") Date date) {
-        return postService.findByEventDate(date);
+    public ResponseEntity<List<Post>> findPostsByEventDate(@RequestParam("date") Date date) {
+        return new ResponseEntity<>(postService.findByEventDate(date), HttpStatus.OK);
     }
 
     @GetMapping("/category")
-    public List<Post> findPostsByCategoryName(@RequestParam("name") String categoryName){
-        return postService.findByCategoryName(categoryName);
+    public ResponseEntity<List<Post>> findPostsByCategoryName(@RequestParam("name") String categoryName){
+        return new ResponseEntity<>(postService.findByCategoryName(categoryName), HttpStatus.OK);
     }
 
     @GetMapping("/important")
-    public List<Post> findPostsByImportant(@RequestParam("important") byte important){
-        return postService.findByImportant(important);
+    public ResponseEntity<List<Post>> findPostsByImportant(@RequestParam("important") byte important){
+        return new ResponseEntity<>(postService.findByImportant(important), HttpStatus.OK);
     }
 
     // ---------------------------------------------------------
 
     @PostMapping
-    public Post createPost(@RequestBody Post post){
-        return postService.createPost(post);
+    public ResponseEntity<Post> createPost(@RequestBody Post post){
+        return new ResponseEntity<>(postService.createPost(post), HttpStatus.CREATED);
     }
 
     // ---------------------------------------------------------
 
     @PutMapping("/{postId}")
-    public Post updatePost(@PathVariable Long postId, @RequestBody Post post){
-        return postService.updatePost(postId, post);
+    public ResponseEntity<Post> updatePost(@PathVariable Long postId, @RequestBody Post post){
+        return new ResponseEntity<>(postService.updatePost(postId, post), HttpStatus.OK);
     }
 
     // ---------------------------------------------------------
 
     @DeleteMapping("/{postId}")
-    public void deletePost(@PathVariable Long postId){
-        postService.deletePost(postId);
+    public ResponseEntity<Post> deletePost(@PathVariable Long postId){
+        return new ResponseEntity<>(postService.deletePost(postId), HttpStatus.OK);
     }
 
 }

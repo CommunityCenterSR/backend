@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements IPostService {
@@ -80,8 +81,15 @@ public class PostServiceImpl implements IPostService {
     }
 
     @Override
-    public void deletePost(Long postId) {
+    public Post deletePost(Long postId) {
+
+        Optional<Post> postExists = postRepository.findById(postId);
+
+        if (postExists.isEmpty())
+            throw new NotFoundException("No se encontró ningún Post con ID: " + postId);
+
         postRepository.deleteById(postId);
+        return postExists.get();
     }
 
 
