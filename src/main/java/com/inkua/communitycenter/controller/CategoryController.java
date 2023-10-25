@@ -2,10 +2,13 @@ package com.inkua.communitycenter.controller;
 
 import com.inkua.communitycenter.entity.Category;
 import com.inkua.communitycenter.service.ICategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -22,25 +25,36 @@ public class CategoryController {
         return categoryService.findAll();
     }
 
-    // ---------------------------------------------
-
-    @PostMapping
-    public Category createCategory(@RequestBody Category category){
-        return categoryService.createCategory(category);
+    @GetMapping("/category")
+    public ResponseEntity<Optional<Category>> findByName(@RequestParam(name = "name") String name){
+        Optional<Category> category = categoryService.findByName(name);
+        return new ResponseEntity<>(category, HttpStatus.FOUND);
     }
 
     // ---------------------------------------------
 
+    @PostMapping
+    public ResponseEntity<Category> createCategory(@Valid @RequestBody Category category){
+        Category newCategory = categoryService.saveCategory(category);
+        return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
+    }
+
+
+    // ---------------------------------------------
+
     @PutMapping("/{catId}")
-    public Category updateCategory(@PathVariable Long catId, @RequestBody Category category){
-        return categoryService.updateCategory(catId, category);
+    public ResponseEntity<Category> updateCategory(@PathVariable Long catId,
+                                                   @Valid @RequestBody Category category){
+        Category categoryUpdated = categoryService.updateCategory(catId, category);
+        return new ResponseEntity<>(categoryUpdated, HttpStatus.OK);
     }
 
     // ---------------------------------------------
 
     @DeleteMapping("/{catId}")
-    public void deleteCategory(@PathVariable Long catId){
-        categoryService.deleteCategory(catId);
+    public ResponseEntity<Category> deleteCategory(@PathVariable Long catId){
+        Category categoryDeleted = categoryService.deleteCategory(catId);
+        return new ResponseEntity<>(categoryDeleted, HttpStatus.OK);
     }
 
     // ---------------------------------------------
