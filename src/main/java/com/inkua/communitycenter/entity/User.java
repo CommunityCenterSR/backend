@@ -1,4 +1,4 @@
-package com.inkua.user.model;
+package com.inkua.communitycenter.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

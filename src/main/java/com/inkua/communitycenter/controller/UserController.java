@@ -1,45 +1,52 @@
-package com.inkua.user.controller;
+package com.inkua.communitycenter.controller;
 
-import com.inkua.user.model.User;
-import com.inkua.user.service.UserService;
+import com.inkua.communitycenter.entity.User;
+import com.inkua.communitycenter.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/v1/users")
 public class UserController {
+
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
+
     @GetMapping
-    public List<User> getUsers() {
-        return this.userService.findAllUsers();
+    public ResponseEntity<List<User>> getUsers() {
+        List<User> list = this.userService.findAllUsers();
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping(path = "/{email}")
-    public Optional<User> getByEmail(@PathVariable("email") String email) {
-        return this.userService.findByEmail(email);
+    public ResponseEntity<Optional<User>> getByEmail(@PathVariable("email") String email) {
+        Optional<User> user = this.userService.findByEmail(email);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping(path = ("/create"))
-    public User saveUser(@RequestBody User user) {
-        return this.userService.saveUser(user);
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
+        return new ResponseEntity<>( this.userService.saveUser(user), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/{id}")
-    public User updateUserById(@RequestBody User request,@PathVariable("id") Long id) {
-        return this.userService.updateById(request, id);
+    public ResponseEntity<User> updateUserById(@RequestBody User request,@PathVariable("id") Long id) {
+        return new ResponseEntity<>(this.userService.updateById(request, id), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
-    public String deleteById(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteById(@PathVariable("id") Long id) {
         boolean ok = this.userService.deleteUser(id);
         if (ok) {
-            return "User with id " + id + "deleted";
+            return new ResponseEntity<>("User with id " + id + "deleted", HttpStatus.OK);
         }else {
-            return "Error";
+            return new ResponseEntity<>("Error", HttpStatus.NOT_FOUND);
         }
     }
 }

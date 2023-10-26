@@ -1,7 +1,8 @@
-package com.inkua.user.service;
+package com.inkua.communitycenter.service.impl;
 
-import com.inkua.user.model.User;
-import com.inkua.user.repository.UserRepository;
+import com.inkua.communitycenter.entity.User;
+import com.inkua.communitycenter.repository.IUserRepository;
+import com.inkua.communitycenter.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,33 +11,38 @@ import java.util.Optional;
 
 
 @Service
-public class UserService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
-    IUserRepository iUserRepository;
+    private IUserRepository userRepository;
 
+    @Override
     public List<User> findAllUsers() {
-        return iUserRepository.findAll();
+        return userRepository.findAll();
     }
 
+    @Override
     public Optional<User> findByEmail(String email) {
-        return iUserRepository.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
+    @Override
     public User saveUser(User user) {
-        return iUserRepository.save(user);
+        return userRepository.save(user);
     }
 
+    @Override
     public User updateById(User request, Long id) {
-        User user = iUserRepository.findById(id).get();
+        User user = userRepository.findById(id).get();
         user.setName(request.getName());
         user.setEmail(request.getEmail());
         return user;
     }
 
+    @Override
     public Boolean deleteUser(Long id) {
         try {
-            iUserRepository.deleteById(id);
+            userRepository.deleteById(id);
             return true;
         }catch (Exception e) {
             return false;

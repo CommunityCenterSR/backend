@@ -1,34 +1,38 @@
-package com.example.demo.controller;
+package com.inkua.communitycenter.controller;
 
-import com.example.demo.entity.Information;
-import com.example.demo.service.InfoService;
+import com.inkua.communitycenter.entity.Information;
+import com.inkua.communitycenter.service.InfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/information")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(path = "/api/v1/information")
 public class InfoController {
+
     @Autowired
-    InfoService infoService;
+    private InfoService infoService;
 
     public InfoController(InfoService infoService){
         this.infoService = infoService;
     }
 
     @GetMapping("/{infoId}")
-    public List<Information> findByType(@PathVariable("infoId") String type){
-        return infoService.findByType(type);
+    public ResponseEntity<List<Information>> findByType(@PathVariable("infoId") String type){
+        return new ResponseEntity<>(infoService.findByType(type), HttpStatus.OK);
     }
 
     @PostMapping
-    public void createOrUpdate(@RequestBody Information information){
-        infoService.saveOrUpdate(information);
+    public ResponseEntity<Information> createOrUpdate(@RequestBody Information information){
+        return new ResponseEntity<>(infoService.saveOrUpdate(information), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{infoId}")
-    public void deleteInfo(@PathVariable("infoId") Long infoId){
-        infoService.delete(infoId);
+    public ResponseEntity<Information> deleteInfo(@PathVariable("infoId") Long infoId){
+        return new ResponseEntity<>(infoService.delete(infoId), HttpStatus.OK);
     }
 }

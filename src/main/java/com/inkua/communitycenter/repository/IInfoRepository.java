@@ -1,6 +1,6 @@
-package com.example.demo.repository;
+package com.inkua.communitycenter.repository;
 
-import com.example.demo.entity.Information;
+import com.inkua.communitycenter.entity.Information;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
