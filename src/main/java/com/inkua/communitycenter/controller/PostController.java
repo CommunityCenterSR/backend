@@ -2,6 +2,7 @@ package com.inkua.communitycenter.controller;
 
 import com.inkua.communitycenter.entity.Post;
 import com.inkua.communitycenter.service.IPostService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class PostController {
     // ---------------------------------------------------------
 
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody Post post){
+    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post){
         return new ResponseEntity<>(postService.createPost(post), HttpStatus.CREATED);
     }
 

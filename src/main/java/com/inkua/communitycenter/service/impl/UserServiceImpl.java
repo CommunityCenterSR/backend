@@ -1,6 +1,7 @@
 package com.inkua.communitycenter.service.impl;
 
 import com.inkua.communitycenter.entity.User;
+import com.inkua.communitycenter.exception.NotFoundException;
 import com.inkua.communitycenter.repository.IUserRepository;
 import com.inkua.communitycenter.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,10 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isEmpty())
+            throw new NotFoundException("No se encontró usuario con email " + email);
+        return user;
     }
 
     @Override
@@ -33,19 +37,25 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User updateById(User request, Long id) {
-        User user = userRepository.findById(id).get();
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        return user;
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isEmpty()){
+            throw new NotFoundException("No se encontró usuario con id: " + id);
+        }
+        request.setId(id);
+
+        return userRepository.save(request);
     }
 
     @Override
-    public Boolean deleteUser(Long id) {
-        try {
-            userRepository.deleteById(id);
-            return true;
-        }catch (Exception e) {
-            return false;
+    public User deleteUser(Long id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isEmpty()){
+            throw new NotFoundException("No se encontró usuario con id: " + id);
         }
+        userRepository.deleteById(id);
+        return user.get();
+
     }
 }

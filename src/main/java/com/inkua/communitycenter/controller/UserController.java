@@ -30,7 +30,7 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping(path = ("/create"))
+    @PostMapping
     public ResponseEntity<User> saveUser(@RequestBody User user) {
         return new ResponseEntity<>( this.userService.saveUser(user), HttpStatus.CREATED);
     }
@@ -41,12 +41,7 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable("id") Long id) {
-        boolean ok = this.userService.deleteUser(id);
-        if (ok) {
-            return new ResponseEntity<>("User with id " + id + "deleted", HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>("Error", HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<User> deleteById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(this.userService.deleteUser(id), HttpStatus.OK);
     }
 }

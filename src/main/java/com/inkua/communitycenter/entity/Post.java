@@ -20,6 +20,7 @@ public class Post {
     private Long id;
 
     @Size(min = 3, max = 100)
+    @NotBlank
     private String title;
 
     @Size(max = 120)

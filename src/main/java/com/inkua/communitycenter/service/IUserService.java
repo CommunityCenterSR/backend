@@ -11,6 +11,6 @@ public interface IUserService {
     Optional<User> findByEmail(String email);
     User saveUser(User user);
     User updateById(User request, Long id);
-    Boolean deleteUser(Long id);
+    User deleteUser(Long id);
 
 }
