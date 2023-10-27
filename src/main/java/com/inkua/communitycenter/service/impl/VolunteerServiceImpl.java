@@ -1,16 +1,20 @@
-package com.inkua.communitycenter.service;
+package com.inkua.communitycenter.service.impl;
 
 import java.util.List;
 
+import com.inkua.communitycenter.repository.IVolunteerRepository;
+import com.inkua.communitycenter.service.IVolunteerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inkua.communitycenter.entity.Volunteer;
 import com.inkua.communitycenter.exception.NotFoundException;
-import com.inkua.communitycenter.repository.VolunteerRepository;
 
 @Service
-public class VolunteerServiceImpl implements VolunteerService {
-    private VolunteerRepository volunteerRepository;
+public class VolunteerServiceImpl implements IVolunteerService {
+
+    @Autowired
+    private IVolunteerRepository volunteerRepository;
 
     @Override
     public List<Volunteer> findAll() {
@@ -19,7 +23,8 @@ public class VolunteerServiceImpl implements VolunteerService {
 
     @Override
     public Volunteer findById(Long id) {
-        return null;
+        return volunteerRepository.findById(id).orElseThrow(()->
+                new NotFoundException("No se encontró voluntario con ID: " + id));
     }
 
     @Override
@@ -29,16 +34,20 @@ public class VolunteerServiceImpl implements VolunteerService {
 
     @Override
     public Volunteer updateVolunteer(Long id, Volunteer volunteer) throws NotFoundException {
-        
         Volunteer volunteerExist = volunteerRepository.findById(id).orElseThrow(
-            ()-> new NotFoundException("No se encontro voluntario" + id));
+            ()-> new NotFoundException("No se encontró voluntario" + id));
         volunteer.setId(id);
         return volunteerRepository.save(volunteer);
     }
 
     @Override
-    public void deleteVolunteer(Long id) {
+    public Volunteer deleteVolunteer(Long id) {
+        Volunteer volunteerExist = volunteerRepository.findById(id).orElseThrow(
+                ()-> new NotFoundException("No se encontró voluntario" + id));
+
         volunteerRepository.deleteById(id);
+
+        return volunteerExist;
     }
 
 }

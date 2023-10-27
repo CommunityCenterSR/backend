@@ -1,18 +1,8 @@
-
-
-
-/*
-  Está comentado hasta que terminen la entidad, repo y services de Volunteer
-* */
-
-
-
-
-
-/*
 package com.inkua.communitycenter.controller;
 import java.util.List;
 
+import com.inkua.communitycenter.entity.Volunteer;
+import com.inkua.communitycenter.service.IVolunteerService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class VolunteerController {
 
     @Autowired
-    private VolunteerService volunteerService;
+    private IVolunteerService volunteerService;
 
 
     @GetMapping("/")
@@ -58,4 +48,4 @@ public class VolunteerController {
     public ResponseEntity<Volunteer> deleteVolunteer(@PathVariable Long id) {
         return new ResponseEntity<>(volunteerService.deleteVolunteer(id), HttpStatus.OK);
     }
-}*/
+}

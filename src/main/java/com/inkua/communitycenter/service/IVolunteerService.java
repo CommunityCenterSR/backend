@@ -3,7 +3,7 @@ import java.util.List;
 
 import com.inkua.communitycenter.entity.Volunteer;
 
-public interface VolunteerService {
+public interface IVolunteerService {
 
     List<Volunteer> findAll();
 
@@ -13,5 +13,5 @@ public interface VolunteerService {
 
     Volunteer updateVolunteer(Long id, Volunteer volunteer);
     
-    void deleteVolunteer(Long id);
+    Volunteer deleteVolunteer(Long id);
 }
