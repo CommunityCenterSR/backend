@@ -15,13 +15,27 @@ public class InfoServiceImpl implements InfoService {
     @Autowired
     private IInfoRepository infoRepository;
 
+
     @Override
-    public List<Information> findByType(String type){
+    public List<Information> findAll() {
+        return infoRepository.findAll();
+    }
+
+    @Override
+    public Optional<Information> findByType(String type){
         return infoRepository.findByType(type);
     }
 
     @Override
     public Information saveOrUpdate (Information information){
+
+        Optional<Information> infoExists = findByType(information.getType());
+
+        if (infoExists.isPresent()){
+            information.setId(infoExists.get().getId());
+            infoRepository.save(information);
+        }
+
         return infoRepository.save(information);
     }
 

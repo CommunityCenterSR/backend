@@ -4,9 +4,9 @@ import com.inkua.communitycenter.entity.Information;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IInfoRepository extends JpaRepository<Information,Long> {
-    List<Information> findByType(String type);
+    Optional<Information> findByType(String type);
 }
