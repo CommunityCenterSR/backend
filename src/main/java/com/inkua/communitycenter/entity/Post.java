@@ -30,7 +30,7 @@ public class Post {
 
     private Date createdAt = new Date();
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date eventDate;
 
     private byte important = 0; // Destacado: 1=Sí / 0=No
