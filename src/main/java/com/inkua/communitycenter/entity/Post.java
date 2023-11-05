@@ -37,7 +37,7 @@ public class Post {
 
     private String image;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Category category;
 
 
