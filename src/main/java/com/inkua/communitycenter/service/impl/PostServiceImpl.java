@@ -66,6 +66,7 @@ public class PostServiceImpl implements IPostService {
 
     @Override
     public Post createPost(Post post) {
+        post.setCreatedAt(new Date());
         return postRepository.save(post);
     }
 
