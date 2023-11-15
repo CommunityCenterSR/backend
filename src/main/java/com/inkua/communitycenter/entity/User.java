@@ -10,7 +10,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String name; // no se usa para nada, se puede eliminar
     private String email;
     private String password;
 }

@@ -26,6 +26,7 @@ public class Post {
     @Size(max = 120)
     private String shortDescription;
 
+    @Size(max = 10000)
     private String longDescription;
 
     private Date createdAt = new Date();
