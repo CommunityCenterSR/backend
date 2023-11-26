@@ -40,4 +40,6 @@ public class Post {
     @ManyToOne
     private Category category;
 
+    public void setCategoryName(String categoryName) {
+    }
 }
