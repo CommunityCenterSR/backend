@@ -50,5 +50,4 @@ public class InfoServiceImpl implements InfoService {
         return info.get();
 
     }
-
 }
