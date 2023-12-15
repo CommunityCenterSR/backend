@@ -26,7 +26,7 @@ public class InfoController {
         return new ResponseEntity<>(infoService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{infoId}")
+    @GetMapping("/type/{infoId}")
     public ResponseEntity<Information> findByType(@PathVariable("infoId") String type){
         return new ResponseEntity<>(infoService.findByType(type).get(), HttpStatus.OK);
     }

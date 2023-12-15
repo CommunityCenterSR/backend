@@ -32,6 +32,7 @@ public class SecurityConfiguration {
             
             .requestMatchers(HttpMethod.GET,"/api/v1/posts/**").permitAll()
             .requestMatchers(HttpMethod.GET,"/api/v1/categories/**").permitAll()
+            .requestMatchers(HttpMethod.GET,"/api/v1/information/type/**").permitAll()
             .requestMatchers("api/v1/categories/**").denyAll()
             .requestMatchers("api/v1/posts/**").denyAll()
 
