@@ -26,6 +26,7 @@ public class Post {
     @Size(max = 120)
     private String shortDescription;
 
+    @Lob
     @Size(max = 10000)
     private String longDescription;
 
@@ -36,6 +37,8 @@ public class Post {
 
     private byte important = 0; // Destacado: 1=Sí / 0=No
 
+    @Lob
+    @Size(max = 10000)
     private String image;
 
     @ManyToOne

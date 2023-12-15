@@ -12,11 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
 @RequestMapping("/api/v1/posts")
 public class PostController {
-
-    // ---------------------------------------------------------
 
     @Autowired
     private IPostService postService;
