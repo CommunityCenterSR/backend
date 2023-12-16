@@ -35,6 +35,11 @@ public class SecurityConfiguration {
             .requestMatchers(HttpMethod.GET,"/api/v1/categories/**").permitAll()
             .requestMatchers(HttpMethod.GET,"/api/v1/information/type/**").permitAll()
 
+            // No funcionan, no sé por qué
+            .requestMatchers(HttpMethod.POST,"/api/v1/volunteers").permitAll()
+            .requestMatchers(HttpMethod.GET,"/api/v1/volunteers").authenticated()
+            .requestMatchers(HttpMethod.DELETE,"/api/v1/volunteers/**").authenticated()
+
 
             .requestMatchers("api/v1/categories/**").denyAll()
             .requestMatchers("api/v1/posts/**").denyAll()

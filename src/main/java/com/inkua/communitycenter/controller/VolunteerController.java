@@ -16,7 +16,7 @@ public class VolunteerController {
     private IVolunteerService volunteerService;
 
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<Volunteer>> findAll() {
         return new ResponseEntity<>(volunteerService.findAll(), HttpStatus.OK);
     }
@@ -26,7 +26,7 @@ public class VolunteerController {
         return new ResponseEntity<>((volunteerService).findById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Volunteer> createVolunteer(@RequestBody Volunteer volunteer) {
         return new ResponseEntity<>(volunteerService.createVolunteer(volunteer), HttpStatus.CREATED);
     }
